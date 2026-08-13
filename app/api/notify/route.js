@@ -10,9 +10,13 @@ export async function POST(request) {
   const token = String(body.token || "").trim();
   const message = String(body.message || "").trim();
   const category = String(body.category || "Heads up").trim();
+  const vercelCity = request.headers.get("x-vercel-ip-city");
+  const vercelCountry = request.headers.get("x-vercel-ip-country");
+  const vercelLat = Number(request.headers.get("x-vercel-ip-latitude"));
+  const vercelLng = Number(request.headers.get("x-vercel-ip-longitude"));
   const inputLocation = body.location && Number.isFinite(Number(body.location.latitude)) && Number.isFinite(Number(body.location.longitude))
-    ? { location_lat: Number(Number(body.location.latitude).toFixed(3)), location_lng: Number(Number(body.location.longitude).toFixed(3)), location_accuracy: Math.max(0, Math.round(Number(body.location.accuracy) || 0)) }
-    : {};
+    ? { location_lat: Number(Number(body.location.latitude).toFixed(3)), location_lng: Number(Number(body.location.longitude).toFixed(3)), location_accuracy: Math.max(0, Math.round(Number(body.location.accuracy) || 0)), location_label: "Device location", location_source: "device" }
+    : (vercelCity || vercelCountry ? { location_lat: Number.isFinite(vercelLat) ? Number(vercelLat.toFixed(2)) : null, location_lng: Number.isFinite(vercelLng) ? Number(vercelLng.toFixed(2)) : null, location_accuracy: null, location_label: [vercelCity, vercelCountry].filter(Boolean).join(", "), location_source: "network" } : {});
 
   if (!tagId || !message) {
     return Response.json(
@@ -56,7 +60,7 @@ export async function POST(request) {
     category,
     message,
     createdAt: new Date().toISOString(),
-    ...(inputLocation.location_lat ? { location: { latitude: inputLocation.location_lat, longitude: inputLocation.location_lng, accuracy: inputLocation.location_accuracy } } : {}),
+    ...(inputLocation.location_label ? { location: { label: inputLocation.location_label, source: inputLocation.location_source, latitude: inputLocation.location_lat, longitude: inputLocation.location_lng, accuracy: inputLocation.location_accuracy } } : {}),
   };
 
   tag.alerts.unshift(alert);

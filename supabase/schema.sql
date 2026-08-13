@@ -32,6 +32,8 @@ create table if not exists public.alerts (
   location_lat numeric(9, 6),
   location_lng numeric(9, 6),
   location_accuracy integer,
+  location_label text,
+  location_source text,
   created_at timestamptz not null default now()
 );
 

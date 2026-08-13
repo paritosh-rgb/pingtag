@@ -24,9 +24,9 @@ export async function GET(request) {
 
   if (supabaseConfigured) {
     const supabase = getSupabase(owner.accessToken);
-    const { data, error } = await supabase.from("alerts").select("id, vehicle_id, reason, message, created_at, location_lat, location_lng, location_accuracy").eq("vehicle_id", vehicleId).order("created_at", { ascending: false }).limit(50);
+    const { data, error } = await supabase.from("alerts").select("id, vehicle_id, reason, message, created_at, location_lat, location_lng, location_accuracy, location_label, location_source").eq("vehicle_id", vehicleId).order("created_at", { ascending: false }).limit(50);
     if (error) return Response.json({ error: error.message }, { status: 400 });
-    return Response.json({ alerts: data.map((alert) => ({ id: alert.id, category: alert.reason, message: alert.location_lat == null ? alert.message : `${alert.message} · Approximate location shared`, createdAt: alert.created_at, delivered: true, location: alert.location_lat == null ? null : { latitude: alert.location_lat, longitude: alert.location_lng, accuracy: alert.location_accuracy } })) });
+    return Response.json({ alerts: data.map((alert) => ({ id: alert.id, category: alert.reason, message: alert.location_label ? `${alert.message} · Scan location: ${alert.location_label}` : alert.message, createdAt: alert.created_at, delivered: true, location: alert.location_label ? { label: alert.location_label, source: alert.location_source, latitude: alert.location_lat, longitude: alert.location_lng, accuracy: alert.location_accuracy } : null })) });
   }
 
   const tag = await findTagForOwner(vehicleId, owner.id);

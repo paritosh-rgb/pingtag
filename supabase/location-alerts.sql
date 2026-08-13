@@ -1,7 +1,9 @@
 alter table public.alerts
   add column if not exists location_lat numeric(9, 6),
   add column if not exists location_lng numeric(9, 6),
-  add column if not exists location_accuracy integer;
+  add column if not exists location_accuracy integer,
+  add column if not exists location_label text,
+  add column if not exists location_source text;
 
 alter table public.alerts
   drop constraint if exists alerts_location_pair_check;
