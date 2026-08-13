@@ -21,6 +21,7 @@ export async function POST(request) {
   if (supabaseConfigured) {
     const vehicle = await findVehicleByToken(token);
     if (!vehicle || vehicle.id !== tagId) return Response.json({ error: "Vehicle was not found." }, { status: 404 });
+    if (vehicle.trialExpired) return Response.json({ error: "This free trial has expired." }, { status: 410 });
     const supabase = getSupabaseAdmin();
     if (!supabase) return Response.json({ error: "Server push configuration is incomplete." }, { status: 503 });
     const { data: record, error } = await supabase.from("vehicles").select("subscription").eq("id", tagId).single();

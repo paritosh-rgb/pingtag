@@ -6,6 +6,10 @@ export default async function TagPage({ params }) {
   const { tagId } = await params;
   const vehicle = await findVehicleByToken(tagId);
 
+  if (vehicle?.trialExpired) {
+    return <main className="scan-shell"><a className="brand" href="/"><span className="brand-mark">P</span><span>PingTag</span></a><section className="scan-card"><span className="badge">Trial expired</span><div className="vehicle"><h1 style={{ fontSize: "2.2rem", lineHeight: 1.05 }}>This trial tag has ended</h1><p>The owner’s free PingTag trial has expired. A premium physical tag can keep this vehicle reachable.</p><span className="mono">{vehicle.vehicleNumber}</span></div><a className="btn" href="/">Learn about PingTag <span>↗</span></a></section></main>;
+  }
+
   if (!vehicle) {
     const printedTag = await findPrintedTag(tagId);
     if (!printedTag) notFound();
