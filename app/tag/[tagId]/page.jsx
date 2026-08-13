@@ -13,14 +13,14 @@ export default async function TagPage({ params }) {
   if (!vehicle) {
     const printedTag = await findPrintedTag(tagId);
     if (!printedTag) notFound();
-    return <main className="scan-shell"><a className="brand" href="/"><span className="brand-mark">P</span><span>PingTag</span></a><section className="scan-card"><span className="badge">Tag not activated</span><div className="vehicle"><h1 style={{ fontSize: "2.2rem", lineHeight: 1.05 }}>This tag is waiting for its owner</h1><p>This PingTag sticker has not been activated yet. If this is your vehicle, sign in to activate the tag using the ID printed below the QR code.</p><span className="mono">{printedTag.code}</span></div><a className="btn" href="/login">Owner login <span>↗</span></a></section></main>;
+    return <main className="scan-shell"><a className="brand" href="/"><span className="brand-mark">P</span><span>PingTag</span></a><section className="scan-card"><span className="badge">Tag not activated</span><div className="vehicle"><h1 style={{ fontSize: "2.2rem", lineHeight: 1.05 }}>This tag is waiting for its owner</h1><p>This PingTag sticker has not been activated yet. If this is your vehicle, sign in to activate the tag using the ID printed below the QR code.</p>{printedTag.society_name ? <span className="mono">Assigned society: {printedTag.society_name}</span> : null}<span className="mono">{printedTag.code}</span></div><a className="btn" href="/login">Owner login <span>↗</span></a></section></main>;
   }
 
   return (
     <main className="scan-shell">
       <a className="brand" href="/">
         <span className="brand-mark">P</span>
-        <span>PingTag</span>
+        <span className="brand-stack"><strong>ParkPing</strong><small>by PING</small></span>
       </a>
 
       <section className="scan-card">

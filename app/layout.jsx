@@ -1,12 +1,12 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "PingTag",
-  description: "Anonymous QR alerts for parked cars.",
+  title: "ParkPing by PING",
+  description: "Privacy-first parking communication by PING.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "PingTag",
+    title: "ParkPing",
     statusBarStyle: "default",
   },
 };

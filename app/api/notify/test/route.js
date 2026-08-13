@@ -28,7 +28,7 @@ export async function POST(request) {
 
   try {
     const result = await sendPush(vehicle.subscription, {
-      title: "PingTag notifications are on",
+      title: "ParkPing notifications are on",
       body: `Test alert for ${vehicle.vehicle_number}. Your phone is ready to receive pings.`,
       url: "/dashboard",
     });

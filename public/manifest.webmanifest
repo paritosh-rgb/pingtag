@@ -1,6 +1,6 @@
 {
-  "name": "PingTag",
-  "short_name": "PingTag",
+  "name": "ParkPing by PING",
+  "short_name": "ParkPing",
   "description": "Anonymous alerts for parked vehicles.",
   "start_url": "/dashboard",
   "display": "standalone",

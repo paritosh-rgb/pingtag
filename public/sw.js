@@ -1,6 +1,6 @@
 self.addEventListener("push", (event) => {
   const data = event.data ? event.data.json() : {};
-  const title = data.title || "PingTag alert";
+  const title = data.title || "ParkPing alert";
 
   event.waitUntil(
     self.registration.showNotification(title, {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import ChatPanel from "@/components/ChatPanel";
 
 const quickMessages = {
   "Blocked access": "Your car is blocking access. Could you please move it?",
@@ -15,6 +16,7 @@ export default function ScanForm({ tagId, token }) {
   const [status, setStatus] = useState(null);
   const [location, setLocation] = useState(null);
   const [locationStatus, setLocationStatus] = useState("");
+  const [chat, setChat] = useState(null);
   const [form, setForm] = useState({
     category: "Blocked access",
     message: "",
@@ -63,6 +65,7 @@ export default function ScanForm({ tagId, token }) {
       }
 
       setForm((current) => ({ ...current, message: "" }));
+      setChat(data.chat || null);
       setStatus({
         kind: data.delivered ? "good" : "warn",
         text: data.delivered
@@ -110,6 +113,7 @@ export default function ScanForm({ tagId, token }) {
       </button>
 
       {status ? <div className={`status ${status.kind}`}>{status.text}</div> : null}
+      {chat ? <ChatPanel token={chat.token} role="scanner" /> : null}
     </form>
   );
 }

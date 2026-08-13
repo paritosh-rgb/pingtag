@@ -6,7 +6,7 @@ export default function Home() {
       <nav className="topbar">
         <div className="brand">
           <span className="brand-mark">P</span>
-          <span>PingTag</span>
+          <span className="brand-stack"><strong>ParkPing</strong><small>by PING</small></span>
         </div>
         <div className="top-actions">
           <Link className="nav-pill nav-subtle" href="/login?mode=login">Login</Link>
@@ -20,12 +20,12 @@ export default function Home() {
           <div className="hero-kicker"><span className="live-dot" /> Privacy-first car contact</div>
           <h1>Let your car<br /><em>answer back.</em></h1>
           <p className="lead">A discreet QR sticker for the moments your parked car needs you. Get the message without putting your phone number on the glass.</p>
-          <div className="hero-actions"><Link className="btn hero-btn" href="/login">Sign up <span>↗</span></Link><a className="text-link" href="#workflow">See how it works <span>↓</span></a></div>
+          <div className="hero-actions"><Link className="btn hero-btn" href="/login?trial=1">Get your free trial tag <span>↗</span></Link><a className="text-link" href="#workflow">See how it works <span>↓</span></a></div>
           <div className="hero-proof"><div className="proof-item"><span>01</span><p>Private by design<br /><strong>No number on display.</strong></p></div><div className="proof-item"><span>02</span><p>Made for parking<br /><strong>Society-ready details.</strong></p></div></div>
         </div>
-        <div className="hero-object" aria-label="PingTag QR sticker preview">
+        <div className="hero-object" aria-label="ParkPing QR sticker preview">
           <div className="hero-glow" />
-          <div className="sticker-card"><div className="sticker-top"><span className="brand-mini">P</span><span>PingTag</span><span className="sticker-live">● LIVE</span></div><div className="sticker-qr"><div className="qr-pattern"><i /><i /><i /><i /><i /><i /><i /><i /><i /></div></div><strong>Scan to contact owner</strong><small>Without revealing their number</small></div>
+          <div className="sticker-card"><div className="sticker-top"><span className="brand-mini">P</span><span>ParkPing</span><span className="sticker-live">● LIVE</span></div><div className="sticker-qr"><div className="qr-pattern"><i /><i /><i /><i /><i /><i /><i /><i /><i /></div></div><strong>Scan to contact owner</strong><small>Without revealing their number</small></div>
           <div className="hero-caption"><span className="caption-line" /> <span>Windshield tag / 001</span></div>
         </div>
       </section>
@@ -39,7 +39,7 @@ export default function Home() {
           <div className="track-line"><span>→</span></div>
           <div className="workflow-step"><div className="step-mark">03</div><div className="step-visual ping-mini"><span className="ping-dot" /><div><b>New Ping</b><small>Lights are still on</small></div><span className="ping-time">now</span></div><strong>You get the ping</strong><p>Reply to the moment without exposing your phone.</p></div>
         </div>
-        <div className="workflow-footer"><span><i className="privacy-check">✓</i> No phone number printed</span><span><i className="privacy-check">✓</i> No login for scanners</span><Link className="btn" href="/login">Sign up <span>↗</span></Link></div>
+        <div className="workflow-footer"><span><i className="privacy-check">✓</i> No phone number printed</span><span><i className="privacy-check">✓</i> No login for scanners</span><Link className="btn" href="/login?trial=1">Get free trial <span>↗</span></Link></div>
       </section>
     </main>
   );
