@@ -625,9 +625,10 @@ h1 em, .auth-intro em { color: var(--accent); font-family: Georgia, serif; font-
 .trial-banner { background: #fff0e8; border: 1px solid #ffd6ce; border-radius: 6px; color: #9b4d34; font-size: .75rem; line-height: 1.4; margin: 12px 0; padding: 9px 10px; }
 
 .print-tag { background: #17211d; border: 1px solid #2e4a3c; border-radius: 12px; color: #fffef9; overflow: hidden; padding: 18px; }.print-tag-brand { align-items: center; display: flex; gap: 8px; }.print-tag-brand .brand-mark { background: #b7e4d5; color: #17211d; height: 26px; width: 26px; }.print-tag-brand > span:last-child { color: #9eb8ae; font-size: .55rem; font-weight: 800; letter-spacing: .08em; margin-left: auto; }.print-tag-copy { padding: 28px 0 16px; }.print-tag-kicker { color: #a9dfcf; font-size: .68rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }.print-tag-copy h2 { color: #fffef9; font-size: 1.7rem; margin: 8px 0 6px; }.print-tag-copy p { color: #b9c9c1; font-size: .76rem; line-height: 1.45; margin: 0; }.print-tag .admin-qr { border: 0; margin: 4px auto 16px; max-width: 210px; padding: 12px; }.print-tag-footer { align-items: center; border-top: 1px solid #355044; display: flex; justify-content: space-between; padding-top: 12px; }.print-tag-footer strong { color: #b7e4d5; font-size: .72rem; }.print-tag-footer span { color: #9eb8ae; font-family: ui-monospace, monospace; font-size: .62rem; }.admin-detail-actions { align-items: center; display: flex; gap: 12px; justify-content: space-between; padding: 16px 0 4px; }.admin-detail-actions .admin-scan-link { margin: 0; }.admin-detail-actions .btn { font-size: .76rem; padding: 9px 11px; }
+.print-tag { aspect-ratio: 2 / 1; display: grid; gap: 8px 14px; grid-template-columns: minmax(0, 1fr) 34%; grid-template-rows: auto 1fr auto; padding: 14px; }.print-tag-brand { grid-column: 1 / -1; }.print-tag-copy { grid-column: 1; grid-row: 2; padding: 8px 0 0; }.print-tag-copy h2 { font-size: 1.35rem; margin: 5px 0 4px; }.print-tag-copy p { font-size: .68rem; max-width: 180px; }.print-tag .admin-qr { align-self: center; grid-column: 2; grid-row: 2 / 4; margin: 0 auto; max-width: 100%; padding: 7px; width: 100%; }.print-tag-footer { align-self: end; grid-column: 1; grid-row: 3; padding-top: 7px; }.print-tag-footer strong { font-size: .62rem; }.print-tag-footer span { font-size: .52rem; }
 
 @media print {
-  @page { margin: 0; size: 90mm 60mm; }
+  @page { margin: 0; size: 100mm 50mm; }
   body { background: white; margin: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
   /* Collapse the dashboard layout so the browser creates one physical page. */
@@ -638,7 +639,7 @@ h1 em, .auth-intro em { color: var(--accent); font-family: Georgia, serif; font-
   body:has(.dashboard-print-tag) .workspace,
   body:has(.dashboard-print-tag) .workspace > aside,
   body:has(.dashboard-print-tag) .tag-preview { display: block !important; margin: 0 !important; padding: 0 !important; }
-  body:has(.dashboard-print-tag) .dashboard-print-tag { display: block !important; height: 60mm; margin: 0; padding: 5mm; position: static; width: 90mm; }
+  body:has(.dashboard-print-tag) .dashboard-print-tag { display: grid !important; height: 50mm; margin: 0; padding: 4mm; position: static; width: 100mm; }
   body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-brand,
   body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-footer { display: flex !important; }
   body:has(.dashboard-print-tag) .dashboard-print-tag .admin-qr { display: block !important; }
@@ -650,7 +651,7 @@ h1 em, .auth-intro em { color: var(--accent); font-family: Georgia, serif; font-
   body:has(.admin-detail) .admin-wrap,
   body:has(.admin-detail) .admin-layout,
   body:has(.admin-detail) .admin-detail { display: block !important; margin: 0 !important; padding: 0 !important; }
-  body:has(.admin-detail) .admin-detail .print-tag { display: block !important; height: 60mm; padding: 5mm; width: 90mm; }
+  body:has(.admin-detail) .admin-detail .print-tag { display: grid !important; height: 50mm; padding: 4mm; width: 100mm; }
 }
 
 .install-backdrop { align-items: center; background: rgba(23, 33, 29, .72); display: flex; inset: 0; justify-content: center; padding: 20px; position: fixed; z-index: 100; }.install-modal { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 24px 80px rgba(0,0,0,.24); max-width: 440px; padding: 28px; width: 100%; }.install-modal h2 { font-size: 1.8rem; margin: 10px 0; }.install-modal p { color: var(--muted); line-height: 1.55; }.install-modal ol { color: var(--ink); line-height: 1.8; margin: 18px 0; padding-left: 22px; }.install-note { background: #eef5f0; border-left: 3px solid var(--accent); color: var(--accent-dark); font-size: .84rem; line-height: 1.45; padding: 12px; }
