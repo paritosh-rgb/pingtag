@@ -32,7 +32,9 @@ export async function POST(request) {
   if (!owner) return Response.json({ error: "Please log in." }, { status: 401 });
   const body = await request.json();
   if (!body.tagCode || !body.vehicleNumber || !body.phoneNumber) return Response.json({ error: "Tag code, vehicle number, and phone number are required." }, { status: 400 });
-  const origin = request.headers.get("origin") || new URL(request.url).origin;
+  const forwardedHost = request.headers.get("x-forwarded-host") || request.headers.get("host");
+  const forwardedProto = request.headers.get("x-forwarded-proto") || new URL(request.url).protocol.replace(":", "");
+  const origin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : new URL(request.url).origin;
   try {
     const vehicle = await activateVehicle({ ...body, ownerId: owner.id, accessToken: owner.accessToken, origin });
     return Response.json({ vehicle });
