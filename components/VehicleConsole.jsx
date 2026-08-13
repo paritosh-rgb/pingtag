@@ -43,6 +43,9 @@ export default function VehicleConsole() {
     if (!selected) return; setBusy(true); setStatus(null);
     try {
       if (!canPush) throw new Error("This browser does not support Web Push notifications.");
+      const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const isStandalone = navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
+      if (isIos && !isStandalone) throw new Error("On iPhone, first use Safari's Share button → Add to Home Screen. Then open PingTag from the new Home Screen icon and enable notifications there.");
       const key = await (await fetch("/api/subscribe")).json(); if (!key.publicKey) throw new Error("Add VAPID keys before enabling notifications.");
       if (await Notification.requestPermission() !== "granted") throw new Error("Notification permission was not granted.");
       await navigator.serviceWorker.register("/sw.js");
