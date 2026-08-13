@@ -52,6 +52,8 @@ Run `supabase/schema.sql` in the Supabase SQL editor. It creates `tags`, `vehicl
 
 Run `supabase/public-scanner.sql` as well. It creates the display-only view used by public QR scans; phone numbers and addresses are intentionally excluded.
 
+Run `supabase/location-alerts.sql` to enable optional approximate scan locations. Scanners must explicitly opt in; coordinates are rounded before saving.
+
 For a local activation test, run `supabase/seed-tags.sql` in the SQL editor. Production tag inventory should be inserted by an admin or fulfillment workflow, never from the public app.
 
 After adding or changing `.env.local`, restart the Next.js dev server and log in again. Supabase mode does not accept local fallback owner IDs.

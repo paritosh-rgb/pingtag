@@ -10,6 +10,9 @@ export async function POST(request) {
   const token = String(body.token || "").trim();
   const message = String(body.message || "").trim();
   const category = String(body.category || "Heads up").trim();
+  const inputLocation = body.location && Number.isFinite(Number(body.location.latitude)) && Number.isFinite(Number(body.location.longitude))
+    ? { location_lat: Number(Number(body.location.latitude).toFixed(3)), location_lng: Number(Number(body.location.longitude).toFixed(3)), location_accuracy: Math.max(0, Math.round(Number(body.location.accuracy) || 0)) }
+    : {};
 
   if (!tagId || !message) {
     return Response.json(
@@ -26,7 +29,7 @@ export async function POST(request) {
     if (!supabase) return Response.json({ error: "Server push configuration is incomplete." }, { status: 503 });
     const { data: record, error } = await supabase.from("vehicles").select("subscription").eq("id", tagId).single();
     if (error) return Response.json({ error: error.message }, { status: 400 });
-    const { error: alertError } = await supabase.from("alerts").insert({ vehicle_id: tagId, reason: category, message });
+    const { error: alertError } = await supabase.from("alerts").insert({ vehicle_id: tagId, reason: category, message, ...inputLocation });
     if (alertError) return Response.json({ error: alertError.message }, { status: 400 });
     if (!record.subscription) return Response.json({ ok: true, delivered: false, reason: "The owner has not enabled browser notifications yet." });
     try {
@@ -53,6 +56,7 @@ export async function POST(request) {
     category,
     message,
     createdAt: new Date().toISOString(),
+    ...(inputLocation.location_lat ? { location: { latitude: inputLocation.location_lat, longitude: inputLocation.location_lng, accuracy: inputLocation.location_accuracy } } : {}),
   };
 
   tag.alerts.unshift(alert);

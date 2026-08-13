@@ -13,6 +13,8 @@ const quickMessages = {
 export default function ScanForm({ tagId, token }) {
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState(null);
+  const [location, setLocation] = useState(null);
+  const [locationStatus, setLocationStatus] = useState("");
   const [form, setForm] = useState({
     category: "Blocked access",
     message: "",
@@ -29,6 +31,20 @@ export default function ScanForm({ tagId, token }) {
     setForm({ category, message: quickMessages[category] });
   }
 
+  function toggleLocation(event) {
+    if (!event.target.checked) { setLocation(null); setLocationStatus(""); return; }
+    if (!navigator.geolocation) { setLocationStatus("Location is not available in this browser."); return; }
+    setLocationStatus("Requesting approximate location...");
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setLocation({ latitude: Number(position.coords.latitude.toFixed(3)), longitude: Number(position.coords.longitude.toFixed(3)), accuracy: Math.round(position.coords.accuracy || 0) });
+        setLocationStatus("Approximate location attached.");
+      },
+      () => { event.target.checked = false; setLocationStatus("Location permission was not granted."); },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: 120000 },
+    );
+  }
+
   async function sendAlert(event) {
     event.preventDefault();
     setBusy(true);
@@ -38,7 +54,7 @@ export default function ScanForm({ tagId, token }) {
       const response = await fetch("/api/notify", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ...form, tagId, token }),
+        body: JSON.stringify({ ...form, tagId, token, location }),
       });
       const data = await response.json();
 
@@ -71,6 +87,9 @@ export default function ScanForm({ tagId, token }) {
           {Object.keys(quickMessages).map((category) => <option key={category}>{category}</option>)}
         </select>
       </div>
+
+      <label className="location-consent"><input type="checkbox" onChange={toggleLocation} /><span><strong>Share approximate location</strong><small>Helpful for finding the car. Your exact location is rounded before saving.</small></span></label>
+      {locationStatus ? <div className="location-status">{locationStatus}</div> : null}
 
       <div className="field">
         <label htmlFor="message">Anonymous message</label>

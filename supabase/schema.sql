@@ -29,6 +29,9 @@ create table if not exists public.alerts (
   vehicle_id uuid not null references public.vehicles(id) on delete cascade,
   reason text not null,
   message text not null,
+  location_lat numeric(9, 6),
+  location_lng numeric(9, 6),
+  location_accuracy integer,
   created_at timestamptz not null default now()
 );
 
