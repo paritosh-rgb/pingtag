@@ -19,7 +19,7 @@ export async function POST(request) {
   const body = await request.json();
   if (!body.vehicleNumber || !body.phoneNumber) return Response.json({ error: "Vehicle number and phone number are required." }, { status: 400 });
 
-  const existing = (await listVehicles(owner)).find((vehicle) => vehicle.isTrial);
+  const existing = (await listVehicles({ ownerId: owner.id, accessToken: owner.accessToken })).find((vehicle) => vehicle.isTrial);
   if (existing) return Response.json({ vehicle: existing, existing: true });
 
   const admin = getSupabaseAdmin();

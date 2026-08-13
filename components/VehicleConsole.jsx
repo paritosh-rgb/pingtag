@@ -50,7 +50,8 @@ export default function VehicleConsole() {
     setBusy(true); setStatus(null);
     try {
       const response = await fetch("/api/trial", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(form) });
-      const data = await response.json(); if (!response.ok) throw new Error(data.error || "Could not create trial tag.");
+      const raw = await response.text(); let data = {}; try { data = raw ? JSON.parse(raw) : {}; } catch {}
+      if (!response.ok) throw new Error(data.error || `Could not create trial tag (${response.status}).`);
       const vehicle = data.vehicle;
       setVehicles((current) => current.some((item) => item.id === vehicle.id) ? current : [vehicle, ...current]); setSelected(vehicle); setAlerts([]);
       setStatus({ kind: "good", text: data.existing ? "Your free trial tag is ready." : "Free digital trial created. Print it and try PingTag for 14 days." });
