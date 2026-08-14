@@ -41,7 +41,7 @@ export async function GET(request) {
   if (result.error) return Response.json({ error: result.error }, { status: 403 });
   const { data: messages, error } = await result.admin.from("chat_messages").select("id,sender,body,created_at").eq("thread_id", result.thread.id).order("created_at", { ascending: true }).limit(100);
   if (error) return Response.json({ error: error.message }, { status: 400 });
-  return Response.json({ thread: { id: result.thread.id, expiresAt: result.thread.expires_at }, messages: (messages || []).map((item) => ({ id: item.id, sender: item.sender, body: item.body, createdAt: item.created_at })) });
+  return Response.json({ thread: { id: result.thread.id, expiresAt: result.thread.expires_at }, messages: (messages || []).map((item) => ({ id: item.id, sender: item.sender, body: item.body, createdAt: item.created_at })) }, { headers: { "Cache-Control": "no-store, max-age=0" } });
 }
 
 export async function POST(request) {

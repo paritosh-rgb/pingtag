@@ -12,7 +12,7 @@ export default function ChatPanel({ threadId, token, role = "owner" }) {
   async function loadMessages() {
     if (!threadId && !token) return;
     const query = token ? `token=${encodeURIComponent(token)}` : `threadId=${encodeURIComponent(threadId)}`;
-    const response = await fetch(`/api/chat?${query}`);
+    const response = await fetch(`/api/chat?${query}&_=${Date.now()}`, { cache: "no-store" });
     const data = await response.json();
     if (!response.ok) { setStatus(data.error || "Chat unavailable."); return; }
     setMessages(data.messages || []);
