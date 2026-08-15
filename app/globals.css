@@ -1018,3 +1018,56 @@ h1 em, .auth-intro em { color: #ff9a8a; }
   .workspace .button-row { display: grid; grid-template-columns: 1fr; }
   .workspace .button-row .btn { justify-content: center; width: 100%; }
 }
+
+/* The actual tag uses the exact landing-page artwork, with live QR and tag data. */
+.print-tag:not(.tag-art-print) {
+  background: linear-gradient(90deg, #111a1c 0 43%, #fffdf8 43% 100%);
+  border: 4px solid #f8c514;
+  border-radius: 22px;
+  grid-template-columns: 43% 57%;
+  grid-template-rows: auto 1fr auto;
+  min-height: 410px;
+  padding: 20px;
+}
+.print-tag:not(.tag-art-print) .print-tag-brand { align-items: center; gap: 6px; padding-bottom: 0; }
+.print-tag:not(.tag-art-print) .print-tag-brand .brand-mark { background: transparent; color: #f8c514; font-size: 0; height: 32px; width: 32px; }
+.print-tag:not(.tag-art-print) .print-tag-brand .brand-mark::after { content: "⌁"; font-size: 2.4rem; line-height: 1; }
+.print-tag:not(.tag-art-print) .print-tag-brand strong { font-size: 0; }
+.print-tag:not(.tag-art-print) .print-tag-brand strong::after { color: #fffdf8; content: "PING"; font-size: 2.55rem; font-weight: 950; letter-spacing: -.09em; }
+.print-tag:not(.tag-art-print) .print-tag-brand::after { color: #fffdf8; content: "ParkPing by PING"; font-size: .62rem; font-weight: 850; left: 21px; letter-spacing: .01em; position: absolute; top: 63px; }
+.print-tag:not(.tag-art-print) .print-tag-brand::first-letter { color: #f8c514; }
+.print-tag:not(.tag-art-print) .print-tag-copy { align-self: end; padding: 0 14px 35px 0; }
+.print-tag:not(.tag-art-print) .print-tag-kicker { display: none; }
+.print-tag:not(.tag-art-print) .print-tag-copy h2 { font-size: 0; line-height: 1; margin: 0; }
+.print-tag:not(.tag-art-print) .print-tag-copy h2::after { color: #fffdf8; content: "BLOCKED\A YOU\A BY MISTAKE?"; font-size: 1.62rem; font-weight: 950; letter-spacing: -.045em; line-height: .88; white-space: pre; }
+.print-tag:not(.tag-art-print) .print-tag-copy p { color: transparent; font-size: 0; margin: 15px 0 0; padding: 0; }
+.print-tag:not(.tag-art-print) .print-tag-copy p::after { color: #f8c514; content: "LET’S SOLVE IT\A PRIVATELY."; display: block; font-size: 1.28rem; font-weight: 950; letter-spacing: -.04em; line-height: .9; white-space: pre; }
+.print-tag:not(.tag-art-print) .print-tag-copy::after { background: #fffdf8; bottom: 34px; content: ""; height: 2px; left: 20px; position: absolute; width: 72%; }
+.print-tag:not(.tag-art-print) .admin-qr { border: 7px solid #111a1c; border-radius: 24px; grid-column: 2; grid-row: 1 / 3; margin: 54px auto 25px; max-width: 192px; padding: 10px; }
+.print-tag:not(.tag-art-print)::before { color: #111a1c; content: "We all make mistakes.\A Kindness fixes it.  ♡"; font-family: Georgia, serif; font-size: .9rem; font-style: italic; font-weight: 700; line-height: 1.35; position: absolute; right: 22px; top: 20px; white-space: pre; }
+.print-tag:not(.tag-art-print) .print-tag-footer { align-items: center; background: #f8c514; border: 0; grid-column: 1 / -1; margin: 0 -20px -20px; min-height: 38px; padding: 9px 18px; }
+.print-tag:not(.tag-art-print) .print-tag-footer strong { color: #111a1c; font-size: .67rem; }
+.print-tag:not(.tag-art-print) .print-tag-footer span { color: #111a1c; font-size: .61rem; }
+
+@media print {
+  body:has(.dashboard-print-tag) .dashboard-print-tag,
+  body:has(.admin-detail) .admin-detail .print-tag {
+    background: linear-gradient(90deg, #111a1c 0 43%, #fffdf8 43% 100%) !important;
+    border: 1.2mm solid #f8c514 !important;
+    border-radius: 3mm !important;
+    display: grid !important;
+    grid-template-columns: 43% 57% !important;
+    grid-template-rows: 1fr 5mm !important;
+    height: 60mm !important;
+    padding: 2.8mm !important;
+    width: 90mm !important;
+  }
+  body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-brand,
+  body:has(.admin-detail) .admin-detail .print-tag-brand { display: flex !important; grid-column: 1; grid-row: 1; }
+  body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-copy,
+  body:has(.admin-detail) .admin-detail .print-tag-copy { display: block !important; grid-column: 1; grid-row: 1; }
+  body:has(.dashboard-print-tag) .dashboard-print-tag .admin-qr,
+  body:has(.admin-detail) .admin-detail .admin-qr { display: block !important; grid-column: 2; grid-row: 1; height: 31mm !important; width: 31mm !important; }
+  body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-footer,
+  body:has(.admin-detail) .admin-detail .print-tag-footer { display: flex !important; grid-column: 1 / -1; grid-row: 2; }
+}
