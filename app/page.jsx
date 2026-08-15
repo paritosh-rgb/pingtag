@@ -38,7 +38,7 @@ function ParentLanding() {
       <nav className="parent-nav">
         <Link className="parent-brand" href="/"><span className="parent-mark">P</span><span><strong>PING</strong><small>EVERYDAY OBJECTS, MORE HUMAN</small></span></Link>
         <div className="parent-nav-links"><Link className="active" href="/?product=parkping">ParkPing</Link><Link href="/?product=petping">PetPing</Link><Link href="/?product=bagping">BagPing</Link><a href="#mission">Our mission</a></div>
-        <Link className="parent-nav-cta" href="/login?trial=1">Try ParkPing <span>↗</span></Link>
+        <Link className="parent-nav-cta" href="/?product=parkping">Try ParkPing <span>↗</span></Link>
       </nav>
 
       <section className="parent-hero">
