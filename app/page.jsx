@@ -32,18 +32,48 @@ async function getDemoTag() {
   };
 }
 
-export default async function Home() {
+function ParentLanding() {
+  return (
+    <main className="parent-shell">
+      <nav className="parent-nav">
+        <Link className="parent-brand" href="/"><span className="parent-mark">P</span><span><strong>PING</strong><small>EVERYDAY OBJECTS, MORE HUMAN</small></span></Link>
+        <div className="parent-nav-links"><Link className="active" href="/?product=parkping">ParkPing</Link><Link href="/?product=petping">PetPing</Link><Link href="/?product=bagping">BagPing</Link><a href="#mission">Our mission</a></div>
+        <Link className="parent-nav-cta" href="/login?trial=1">Try ParkPing <span>↗</span></Link>
+      </nav>
+
+      <section className="parent-hero">
+        <div className="parent-orbit orbit-a" /><div className="parent-orbit orbit-b" />
+        <div className="parent-hero-copy"><p className="parent-eyebrow"><span /> PING / PRODUCT STUDIO</p><h1>Small tags.<br /><em>Better moments.</em></h1><p className="parent-lead">We make everyday objects a little more thoughtful. A private way to reach the right person, exactly when it matters.</p><div className="parent-hero-actions"><a className="parent-button" href="#products">Explore products <span>↓</span></a><a className="parent-text-link" href="#mission">Why PING exists ↗</a></div></div>
+        <div className="parent-signal"><span className="signal-pulse" /><div><small>THE PING PRINCIPLE</small><strong>Useful, private,<br />human.</strong></div><span className="signal-arrow">↗</span></div>
+      </section>
+
+      <section className="parent-intro" id="mission"><p className="parent-eyebrow">01 / OUR POINT OF VIEW</p><div><h2>Technology should<br /><em>lower the temperature.</em></h2><p>Not every moment needs a phone call, a public announcement, or another app shouting for attention. PING builds quiet interfaces between people and the things they share.</p></div></section>
+
+      <section className="parent-products" id="products"><div className="parent-section-head"><div><p className="parent-eyebrow">02 / THE PING FAMILY</p><h2>One idea.<br /><em>Many places.</em></h2></div><p>Three products for the small moments where a little context can make a big difference.</p></div><div className="product-grid"><Link className="product-card product-card-park" href="/?product=parkping"><div className="product-card-top"><span>01 / LIVE</span><b>↗</b></div><div className="product-art park-art"><span className="art-bolt">⌁</span><strong>PING</strong><div className="art-qr" /><i>SCAN. PING. MOVE ON.</i></div><div className="product-card-copy"><h3>ParkPing</h3><p>A discreet way to reach a parked car owner without sharing a phone number.</p><span>Explore ParkPing ↗</span></div></Link><article className="product-card product-card-pet"><div className="product-card-top"><span>02 / SOON</span><b>✦</b></div><div className="product-art pet-art"><span className="pet-orbit" /><strong>pet<br /><em>ping</em></strong><span className="pet-tag">A gentle tap<br />for every wag.</span></div><div className="product-card-copy"><h3>PetPing <small>Coming soon</small></h3><p>A tiny, thoughtful way to help a wandering pet find their way home.</p><span>Join the early list ↗</span></div></article><article className="product-card product-card-bag"><div className="product-card-top"><span>03 / SOON</span><b>✦</b></div><div className="product-art bag-art"><div className="bag-loop" /><strong>bag<span>ping</span></strong><span className="bag-copy">Find it.<br />Return it.</span></div><div className="product-card-copy"><h3>BagPing <small>Coming soon</small></h3><p>A private return path for the bags, keys, and things you carry every day.</p><span>Join the early list ↗</span></div></article></div></section>
+
+      <section className="parent-footer"><p className="parent-eyebrow">PING / MADE WITH CARE</p><h2>Make the ordinary<br /><em>feel considered.</em></h2><p>ParkPing is live today. PetPing and BagPing are on their way.</p><Link className="parent-button" href="/?product=parkping">Visit ParkPing <span>↗</span></Link><small>© 2026 PING. Quietly useful by design.</small></section>
+    </main>
+  );
+}
+
+function ComingSoon({ product }) {
+  return <main className="coming-shell"><nav className="parent-nav"><Link className="parent-brand" href="/"><span className="parent-mark">P</span><span><strong>PING</strong><small>EVERYDAY OBJECTS, MORE HUMAN</small></span></Link><div className="parent-nav-links"><Link href="/?product=parkping">ParkPing</Link><Link href="/?product=petping">PetPing</Link><Link href="/?product=bagping">BagPing</Link></div><Link className="parent-nav-cta" href="/">Back to PING <span>↗</span></Link></nav><section className="coming-content"><p className="parent-eyebrow"><span /> PING / PRODUCT STUDIO</p><div className={`coming-icon ${product.toLowerCase()}`}>{product === "PetPing" ? "✦" : "⌁"}</div><h1>{product}<br /><em>is on its way.</em></h1><p>We’re making this one thoughtful too. Leave your email with the PING team and we’ll let you know when it’s ready.</p><a className="parent-button" href={`mailto:hello@pingtag.in?subject=Early access for ${product}`}>Join the early list <span>↗</span></a><Link className="coming-back" href="/">← Explore the PING family</Link></section></main>;
+}
+
+export default async function Home({ searchParams }) {
+  const params = await searchParams;
+  if (params?.product === "petping") return <ComingSoon product="PetPing" />;
+  if (params?.product === "bagping") return <ComingSoon product="BagPing" />;
+  if (params?.product !== "parkping") return <ParentLanding />;
   const demoTag = await getDemoTag();
   return (
     <main className="app-shell">
       <nav className="topbar">
-        <div className="brand">
-          <span className="brand-mark">P</span>
-          <span className="brand-stack"><strong>ParkPing</strong><small>by PING</small></span>
-        </div>
+        <Link className="brand" href="/"><span className="brand-mark">P</span><span className="brand-stack"><strong>ParkPing</strong><small>by PING</small></span></Link>
         <div className="top-actions">
           <Link className="nav-pill nav-subtle" href="/login?mode=login">Login</Link>
           <Link className="nav-pill nav-primary" href="/login">Sign up</Link>
+          <Link className="nav-pill" href="/">PING products</Link>
           <a className="nav-pill" href="#workflow">How it works</a>
         </div>
       </nav>
