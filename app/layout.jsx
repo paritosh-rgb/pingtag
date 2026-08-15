@@ -1,12 +1,12 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "ParkPing by PING",
-  description: "Privacy-first parking communication by PING.",
+  title: "ParkPing by GetPing",
+  description: "Privacy-first parking communication by GetPing.",
   manifest: "/manifest.webmanifest",
   appleWebApp: {
     capable: true,
-    title: "ParkPing",
+    title: "ParkPing by GetPing",
     statusBarStyle: "default",
   },
 };

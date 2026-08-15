@@ -1,5 +1,5 @@
 {
-  "name": "ParkPing by PING",
+  "name": "ParkPing by GetPing",
   "short_name": "ParkPing",
   "description": "Anonymous alerts for parked vehicles.",
   "start_url": "/dashboard",
