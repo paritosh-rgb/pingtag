@@ -105,22 +105,21 @@ export default function VehicleConsole() {
     const context = canvas.getContext("2d");
     const roundRect = (x, y, width, height, radius, fill) => { context.fillStyle = fill; context.beginPath(); context.roundRect(x, y, width, height, radius); context.fill(); };
     const wrap = (text, x, y, maxWidth, lineHeight) => { const words = text.split(" "); let line = ""; for (const word of words) { const next = line ? `${line} ${word}` : word; if (context.measureText(next).width > maxWidth && line) { context.fillText(line, x, y); line = word; y += lineHeight; } else line = next; } if (line) context.fillText(line, x, y); return y; };
-    context.fillStyle = "#fff7e8"; context.fillRect(0, 0, canvas.width, canvas.height);
-    roundRect(12, 12, 1176, 776, 28, "#fff7e8");
-    context.strokeStyle = "#ff765f"; context.lineWidth = 5; context.stroke();
-    roundRect(52, 48, 70, 70, 18, "#ffcf5a");
-    context.fillStyle = "#18352d"; context.font = "700 44px Arial"; context.fillText("P", 75, 96);
-    context.fillStyle = "#18352d"; context.font = "700 38px Arial"; context.fillText("ParkPing", 142, 94);
-    context.fillStyle = "#e85d4d"; context.font = "700 18px Arial"; context.fillText("BY PING  /  PRIVACY-FIRST PARKING", 790, 90);
-    if (selected.societyName) { roundRect(52, 145, 620, 48, 24, "#c9f36a"); context.fillStyle = "#18352d"; context.font = "700 20px Arial"; context.fillText(`FOR RESIDENTS OF ${selected.societyName.toUpperCase()}`, 75, 176); }
-    context.fillStyle = "#e85d4d"; context.font = "700 22px Arial"; context.fillText("SCAN TO REACH THE OWNER", 52, selected.societyName ? 240 : 190);
-    context.fillStyle = "#18352d"; context.font = "700 58px Arial"; context.fillText(selected.vehicleNumber || "Your vehicle", 52, selected.societyName ? 310 : 260);
-    roundRect(52, selected.societyName ? 340 : 290, 610, 116, 12, "#18352d");
-    context.fillStyle = "#fff7e8"; context.font = "800 27px Arial"; wrap("Send an anonymous alert without exposing your phone number.", 78, selected.societyName ? 380 : 330, 555, 36);
-    roundRect(790, 150, 330, 330, 18, "#45c7c0");
-    context.fillStyle = "#ffffff"; context.fillRect(812, 172, 286, 286);
+    context.fillStyle = "#f8c514"; context.fillRect(0, 0, canvas.width, canvas.height);
+    roundRect(22, 22, 1156, 756, 22, "#fffdf8");
+    context.save(); context.beginPath(); context.rect(22, 22, 510, 756); context.clip(); context.fillStyle = "#111a1c"; context.fillRect(22, 22, 510, 756); context.restore();
+    context.fillStyle = "#f8c514"; context.font = "900 84px Arial"; context.fillText("⌁", 68, 120);
+    context.fillStyle = "#fffdf8"; context.font = "900 102px Arial"; context.fillText("PING", 150, 118);
+    context.font = "800 27px Arial"; context.fillText("Park", 68, 162); context.fillStyle = "#f8c514"; context.fillText("Ping", 138, 162); context.fillStyle = "#fffdf8"; context.fillText(" by PING", 205, 162);
+    context.font = "900 48px Arial"; context.fillText("BLOCKED YOU", 68, 285); context.fillText("BY MISTAKE?", 68, 340);
+    context.fillStyle = "#f8c514"; context.fillText("LET'S SOLVE IT", 68, 416); context.fillText("PRIVATELY.", 68, 471);
+    context.fillStyle = "#fffdf8"; context.fillRect(68, 510, 365, 5);
+    context.fillStyle = "#f8c514"; context.font = "900 20px Arial"; context.fillText("01", 68, 570); context.fillText("02", 205, 570); context.fillText("03", 342, 570);
+    context.fillStyle = "#fffdf8"; context.font = "800 17px Arial"; context.fillText("SCAN", 68, 599); context.fillText("PING", 205, 599); context.fillText("MOVE ON", 342, 599);
+    context.fillStyle = "#111a1c"; context.font = "italic 34px Georgia"; context.fillText("We all make mistakes.", 580, 92); context.font = "bold italic 34px Georgia"; context.fillText("Kindness fixes it.  ♡", 580, 134);
+    roundRect(694, 168, 356, 356, 26, "#111a1c"); context.fillStyle = "#fff"; roundRect(714, 188, 316, 316, 14, "#fff");
     const qr = new Image();
-    qr.onload = () => { context.drawImage(qr, 825, 185, 260, 260); context.fillStyle = "#168b83"; context.font = "700 24px Arial"; context.fillText("Scan. Send. Stay private.", 52, 710); context.fillStyle = "#e85d4d"; context.font = "18px monospace"; context.fillText(selected.tagCode || selected.qrToken, 900, 710); const link = document.createElement("a"); link.download = `${selected.tagCode || selected.qrToken}-parkping.png`; link.href = canvas.toDataURL("image/png"); link.click(); };
+    qr.onload = () => { context.drawImage(qr, 734, 208, 276, 276); roundRect(652, 548, 440, 56, 28, "#111a1c"); context.fillStyle = "#fffdf8"; context.font = "900 23px Arial"; context.fillText("⌁  SCAN TO", 690, 584); context.fillStyle = "#f8c514"; context.fillText("PING", 892, 584); context.fillStyle = "#76747a"; context.font = "900 17px Arial"; context.fillText("TAG ID", 580, 654); context.fillStyle = "#111a1c"; context.font = "bold 25px monospace"; context.fillText(selected.tagCode || selected.qrToken, 580, 690); context.fillStyle = "#76747a"; context.font = "17px Arial"; context.fillText([selected.vehicleNumber, selected.flatNumber, selected.societyName].filter(Boolean).join(" · ") || "YOUR VEHICLE", 580, 725); context.fillStyle = "#f8c514"; context.fillRect(22, 730, 1156, 48); context.fillStyle = "#111a1c"; context.font = "900 18px Arial"; context.fillText("🔒 No phone number shared.", 52, 762); context.font = "700 16px Arial"; context.fillText("Privacy by default.", 940, 762); const link = document.createElement("a"); link.download = `${selected.tagCode || selected.qrToken}-parkping.png`; link.href = canvas.toDataURL("image/png"); link.click(); };
     qr.src = selected.qrDataUrl;
   }
 
