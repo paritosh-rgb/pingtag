@@ -1108,3 +1108,19 @@ h1 em, .auth-intro em { color: #ff9a8a; }
 
 /* The physical tag now contains GetPing in its source copy; no overlay labels. */
 .tag-art-brand strong { font-size: 1.5rem !important; letter-spacing: -.08em; }.tag-art-brand strong::after { content: none !important; }.tag-art-subbrand { font-size: .68rem !important; font-weight: 850; margin-top: 9px; }.tag-art-subbrand::after { content: none !important; }.tag-art-scan b { font-size: .63rem !important; }.tag-art-scan b::after { content: none !important; }
+
+/* One shared, full-size physical-tag preview for owners and administrators. */
+.admin-layout { grid-template-columns: minmax(0, 1fr) minmax(400px, .85fr) !important; }
+.admin-detail .print-tag,
+.dashboard-print-tag {
+  box-sizing: border-box;
+  min-height: 410px;
+  width: 100%;
+}
+.print-tag:not(.tag-art-print)::before {
+  left: calc(43% + 24px);
+  right: 22px;
+}
+@media (max-width: 820px) {
+  .admin-layout { grid-template-columns: 1fr !important; }
+}
