@@ -56,7 +56,7 @@ export default function AuthForm({ admin = false }) {
         <button className="btn" disabled={busy} type="submit">{busy ? "Please wait..." : trialMode && mode === "signup" ? "Create free trial tag" : admin || mode === "login" ? "Login" : "Sign up"}<span>↗</span></button>
       </form>
       {status ? <div className={`status ${status.kind}`}>{status.text}</div> : null}
-      <p className="form-note">{admin ? "This account is separate from vehicle owner accounts." : "Your phone is the visible identity. ParkPing by PING uses a private internal login identity and never displays it."}</p>
+      <p className="form-note">{admin ? "This account is separate from vehicle owner accounts." : "Your phone is the visible identity. ParkPing by GetPing uses a private internal login identity and never displays it."}</p>
     </section>
   );
 }

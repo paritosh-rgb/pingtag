@@ -36,24 +36,24 @@ function ParentLanding() {
   return (
     <main className="parent-shell">
       <nav className="parent-nav">
-        <Link className="parent-brand" href="/"><span className="parent-mark">P</span><span><strong>PING</strong><small>EVERYDAY OBJECTS, MORE HUMAN</small></span></Link>
+        <Link className="parent-brand" href="/"><span className="parent-mark">G</span><span><strong>GetPing</strong><small>EVERYDAY OBJECTS, MORE HUMAN</small></span></Link>
         <div className="parent-nav-links"><Link className="active" href="/?product=parkping">ParkPing</Link><Link href="/?product=petping">PetPing</Link><Link href="/?product=bagping">BagPing</Link><a href="#mission">Our mission</a></div>
         <Link className="parent-nav-cta" href="/?product=parkping">Try ParkPing <span>↗</span></Link>
       </nav>
 
       <section className="parent-hero">
         <div className="parent-orbit orbit-a" /><div className="parent-orbit orbit-b" />
-        <div className="parent-hero-copy"><p className="parent-eyebrow"><span /> PING / PRODUCT STUDIO</p><h1>Small tags.<br /><em>Better moments.</em></h1><p className="parent-lead">We make everyday objects a little more thoughtful. A private way to reach the right person, exactly when it matters.</p><div className="parent-hero-actions"><a className="parent-button" href="#products">Explore products <span>↓</span></a><a className="parent-text-link" href="#mission">Why PING exists ↗</a></div></div>
+        <div className="parent-hero-copy"><p className="parent-eyebrow"><span /> GETPING / PRODUCT STUDIO</p><h1>Small tags.<br /><em>Better moments.</em></h1><p className="parent-lead">We make everyday objects a little more thoughtful. A private way to reach the right person, exactly when it matters.</p><div className="parent-hero-actions"><a className="parent-button" href="#products">Explore products <span>↓</span></a><a className="parent-text-link" href="#mission">Why GetPing exists ↗</a></div></div>
         <div className="parent-hero-object" aria-label="A PING product pass"><div className="parent-pass"><div className="parent-pass-ink"><div className="parent-pass-word"><span>⌁</span><strong>PING</strong></div><small>ONE TAP. THE RIGHT PERSON.</small><p>THE SMALL<br />MOMENTS<br /><em>MATTER.</em></p><div className="parent-pass-steps"><span><b>01</b> FIND</span><span><b>02</b> PING</span><span><b>03</b> SOLVE</span></div></div><div className="parent-pass-paper"><p>Useful things deserve<br /><em>a kinder connection.</em></p><Link className="parent-pass-qr" href="/?product=parkping" aria-label="Explore ParkPing"><i /><i /><i /><i /><i /><i /><i /><i /><i /></Link><span className="parent-pass-scan">SCAN TO EXPLORE <b>PING</b></span><div className="parent-pass-id"><span>PRODUCT FAMILY</span><strong>PING / 001</strong></div></div><div className="parent-pass-footer"><span>✦ Designed for real life.</span><small>Private by default.</small></div></div><div className="parent-float-note"><span>↗</span><div><small>ONE SIMPLE PING</small><strong>Connection, without the noise.</strong></div></div></div>
       </section>
 
       <div className="parent-proof-strip"><span>PRIVATE BY DEFAULT</span><i /> <span>ONE TAP, RIGHT PERSON</span><i /> <span>BUILT FOR REAL LIFE</span><p>Small things, thoughtfully connected.</p></div>
 
-      <section className="parent-intro" id="mission"><p className="parent-eyebrow">01 / OUR POINT OF VIEW</p><div><h2>Technology should<br /><em>lower the temperature.</em></h2><p>Not every moment needs a phone call, a public announcement, or another app shouting for attention. PING builds quiet interfaces between people and the things they share.</p></div></section>
+      <section className="parent-intro" id="mission"><p className="parent-eyebrow">01 / OUR POINT OF VIEW</p><div><h2>Technology should<br /><em>lower the temperature.</em></h2><p>Not every moment needs a phone call, a public announcement, or another app shouting for attention. GetPing builds quiet interfaces between people and the things they share.</p></div></section>
 
       <section className="parent-products" id="products"><div className="parent-section-head"><div><p className="parent-eyebrow">02 / THE PING FAMILY</p><h2>One idea.<br /><em>Many places.</em></h2></div><p>Three products for the small moments where a little context can make a big difference.</p></div><div className="product-grid"><Link className="product-card product-card-park" href="/?product=parkping"><div className="product-card-top"><span>01 / LIVE</span><b>↗</b></div><div className="product-art park-art"><span className="art-bolt">⌁</span><strong>PING</strong><div className="art-qr" /><i>SCAN. PING. MOVE ON.</i></div><div className="product-card-copy"><h3>ParkPing</h3><p>A discreet way to reach a parked car owner without sharing a phone number.</p><span>Explore ParkPing ↗</span></div></Link><article className="product-card product-card-pet"><div className="product-card-top"><span>02 / SOON</span><b>✦</b></div><div className="product-art pet-art"><span className="pet-orbit" /><strong>pet<br /><em>ping</em></strong><span className="pet-tag">A gentle tap<br />for every wag.</span></div><div className="product-card-copy"><h3>PetPing <small>Coming soon</small></h3><p>A tiny, thoughtful way to help a wandering pet find their way home.</p><span>Join the early list ↗</span></div></article><article className="product-card product-card-bag"><div className="product-card-top"><span>03 / SOON</span><b>✦</b></div><div className="product-art bag-art"><div className="bag-loop" /><strong>bag<span>ping</span></strong><span className="bag-copy">Find it.<br />Return it.</span></div><div className="product-card-copy"><h3>BagPing <small>Coming soon</small></h3><p>A private return path for the bags, keys, and things you carry every day.</p><span>Join the early list ↗</span></div></article></div></section>
 
-      <section className="parent-footer"><p className="parent-eyebrow">PING / MADE WITH CARE</p><h2>Make the ordinary<br /><em>feel considered.</em></h2><p>ParkPing is live today. PetPing and BagPing are on their way.</p><Link className="parent-button" href="/?product=parkping">Visit ParkPing <span>↗</span></Link><small>© 2026 PING. Quietly useful by design.</small></section>
+      <section className="parent-footer"><p className="parent-eyebrow">GETPING / MADE WITH CARE</p><h2>Make the ordinary<br /><em>feel considered.</em></h2><p>ParkPing is live today. PetPing and BagPing are on their way.</p><Link className="parent-button" href="/?product=parkping">Visit ParkPing <span>↗</span></Link><small>© 2026 GetPing. Quietly useful by design.</small></section>
     </main>
   );
 }
@@ -92,17 +92,17 @@ export default async function Home({ searchParams }) {
           <div className="hero-glow" />
           <div className="sticker-card sample-tag tag-art">
             <div className="tag-art-dark">
-              <div className="tag-art-brand"><span className="tag-art-signal">⌁</span><strong>PING</strong></div>
-              <div className="tag-art-subbrand">Park<span>Ping</span> by PING</div>
+              <div className="tag-art-brand"><span className="tag-art-signal">⌁</span><strong>ParkPing</strong></div>
+              <div className="tag-art-subbrand">by GetPing</div>
               <p className="tag-art-headline">BLOCKED YOU<br />BY MISTAKE?</p>
               <p className="tag-art-solution">LET’S SOLVE IT<br /><em>PRIVATELY.</em></p>
               <div className="tag-art-rule" />
-              <div className="tag-art-steps"><span><b>01</b> SCAN</span><span><b>02</b> PING</span><span><b>03</b> MOVE ON</span></div>
+              <div className="tag-art-steps"><span><b>01</b> SCAN</span><span><b>02</b> CONNECT</span><span><b>03</b> MOVE ON</span></div>
             </div>
             <div className="tag-art-light">
               <div className="tag-art-note">We all make mistakes.<br /><em>Kindness fixes it.</em> <span>♡</span></div>
               <div className="sticker-qr sample-real-qr">{demoTag.qrDataUrl ? <img src={demoTag.qrDataUrl} alt={`QR code for ${demoTag.vehicleNumber}`} /> : <div className="qr-pattern"><i /><i /><i /><i /><i /><i /><i /><i /><i /></div>}</div>
-              <a className="tag-art-scan" href={demoTag.scanUrl} target="_blank" rel="noreferrer"><span>⌁</span> SCAN TO <b>PING</b></a>
+              <a className="tag-art-scan" href={demoTag.scanUrl} target="_blank" rel="noreferrer"><span>⌁</span> SCAN TO <b>GETPING</b></a>
               <div className="tag-art-meta"><span>TAG ID</span><strong>{demoTag.code}</strong><small>{demoTag.vehicleNumber} · {demoTag.flatNumber}</small></div>
             </div>
             <div className="tag-art-footer"><span>🔒 No phone number shared.</span><small>Privacy by default.</small></div>

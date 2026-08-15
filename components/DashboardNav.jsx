@@ -9,5 +9,5 @@ export default function DashboardNav() {
     window.location.href = "/";
   }
 
-  return <nav className="topbar"><Link className="brand" href="/?product=parkping"><span className="brand-mark">P</span><span className="brand-stack"><strong>ParkPing</strong><small>by PING</small></span></Link><div className="top-actions"><Link className="nav-pill" href="/?product=parkping">Home</Link><Link className="nav-pill" href="/">PING products</Link><button className="nav-pill" onClick={logout} type="button">Log out</button></div></nav>;
+  return <nav className="topbar"><Link className="brand" href="/?product=parkping"><span className="brand-mark">P</span><span className="brand-stack"><strong>ParkPing</strong><small>by GetPing</small></span></Link><div className="top-actions"><Link className="nav-pill" href="/?product=parkping">Home</Link><Link className="nav-pill" href="/">GetPing products</Link><button className="nav-pill" onClick={logout} type="button">Log out</button></div></nav>;
 }

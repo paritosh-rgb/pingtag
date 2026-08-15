@@ -56,7 +56,7 @@ export default function VehicleConsole() {
       if (!response.ok) throw new Error(data.error || `Could not create trial tag (${response.status}).`);
       const vehicle = data.vehicle;
       setVehicles((current) => current.some((item) => item.id === vehicle.id) ? current : [vehicle, ...current]); setSelected(vehicle); setAlerts([]);
-      setStatus({ kind: "good", text: data.existing ? "Your free trial tag is ready." : "Free digital trial created. Print it and try PingTag for 14 days." });
+      setStatus({ kind: "good", text: data.existing ? "Your free trial tag is ready." : "Free digital trial created. Print it and try ParkPing for 14 days." });
     } catch (error) { setStatus({ kind: "warn", text: error.message }); } finally { setBusy(false); }
   }
 
@@ -65,8 +65,8 @@ export default function VehicleConsole() {
     try {
       const isIos = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const isStandalone = navigator.standalone === true || window.matchMedia("(display-mode: standalone)").matches;
-      if (isIos && !isStandalone) throw new Error("On iPhone, first use Safari's Share button → Add to Home Screen. Then open PingTag from the new Home Screen icon and enable notifications there.");
-      if (!canPush) throw new Error("This browser does not support Web Push notifications. Use Chrome or Edge on Android, or open PingTag from its iPhone Home Screen icon.");
+      if (isIos && !isStandalone) throw new Error("On iPhone, first use Safari's Share button → Add to Home Screen. Then open ParkPing from the new Home Screen icon and enable notifications there.");
+      if (!canPush) throw new Error("This browser does not support Web Push notifications. Use Chrome or Edge on Android, or open ParkPing from its iPhone Home Screen icon.");
       const key = await (await fetch("/api/subscribe")).json(); if (!key.publicKey) throw new Error("Add VAPID keys before enabling notifications.");
       if (await Notification.requestPermission() !== "granted") throw new Error("Notification permission was not granted.");
       await navigator.serviceWorker.register("/sw.js");
@@ -90,7 +90,7 @@ export default function VehicleConsole() {
     if (!selected) return;
     setBusy(true); setStatus(null);
     try {
-      if (showInstallPrompt) throw new Error("Add PingTag to your Home Screen, open it from the new icon, then test notifications again.");
+      if (showInstallPrompt) throw new Error("Add ParkPing to your Home Screen, open it from the new icon, then test notifications again.");
       const response = await fetch("/api/notify/test", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ tagId: selected.id }) });
       const data = await response.json();
       if (!response.ok || !data.delivered) throw new Error(data.error || data.reason || "The browser accepted the subscription but did not confirm delivery.");
@@ -109,17 +109,17 @@ export default function VehicleConsole() {
     roundRect(22, 22, 1156, 756, 22, "#fffdf8");
     context.save(); context.beginPath(); context.rect(22, 22, 510, 756); context.clip(); context.fillStyle = "#111a1c"; context.fillRect(22, 22, 510, 756); context.restore();
     context.fillStyle = "#f8c514"; context.font = "900 84px Arial"; context.fillText("⌁", 68, 120);
-    context.fillStyle = "#fffdf8"; context.font = "900 102px Arial"; context.fillText("PING", 150, 118);
-    context.font = "800 27px Arial"; context.fillText("Park", 68, 162); context.fillStyle = "#f8c514"; context.fillText("Ping", 138, 162); context.fillStyle = "#fffdf8"; context.fillText(" by PING", 205, 162);
+    context.fillStyle = "#fffdf8"; context.font = "900 72px Arial"; context.fillText("ParkPing", 68, 118);
+    context.font = "800 27px Arial"; context.fillText("by GetPing", 68, 162);
     context.font = "900 48px Arial"; context.fillText("BLOCKED YOU", 68, 285); context.fillText("BY MISTAKE?", 68, 340);
     context.fillStyle = "#f8c514"; context.fillText("LET'S SOLVE IT", 68, 416); context.fillText("PRIVATELY.", 68, 471);
     context.fillStyle = "#fffdf8"; context.fillRect(68, 510, 365, 5);
     context.fillStyle = "#f8c514"; context.font = "900 20px Arial"; context.fillText("01", 68, 570); context.fillText("02", 205, 570); context.fillText("03", 342, 570);
-    context.fillStyle = "#fffdf8"; context.font = "800 17px Arial"; context.fillText("SCAN", 68, 599); context.fillText("PING", 205, 599); context.fillText("MOVE ON", 342, 599);
+    context.fillStyle = "#fffdf8"; context.font = "800 17px Arial"; context.fillText("SCAN", 68, 599); context.fillText("MESSAGE", 205, 599); context.fillText("MOVE ON", 392, 599);
     context.fillStyle = "#111a1c"; context.font = "italic 34px Georgia"; context.fillText("We all make mistakes.", 580, 92); context.font = "bold italic 34px Georgia"; context.fillText("Kindness fixes it.  ♡", 580, 134);
     roundRect(694, 168, 356, 356, 26, "#111a1c"); context.fillStyle = "#fff"; roundRect(714, 188, 316, 316, 14, "#fff");
     const qr = new Image();
-    qr.onload = () => { context.drawImage(qr, 734, 208, 276, 276); roundRect(652, 548, 440, 56, 28, "#111a1c"); context.fillStyle = "#fffdf8"; context.font = "900 23px Arial"; context.fillText("⌁  SCAN TO", 690, 584); context.fillStyle = "#f8c514"; context.fillText("PING", 892, 584); context.fillStyle = "#76747a"; context.font = "900 17px Arial"; context.fillText("TAG ID", 580, 654); context.fillStyle = "#111a1c"; context.font = "bold 25px monospace"; context.fillText(selected.tagCode || selected.qrToken, 580, 690); context.fillStyle = "#76747a"; context.font = "17px Arial"; context.fillText([selected.vehicleNumber, selected.flatNumber, selected.societyName].filter(Boolean).join(" · ") || "YOUR VEHICLE", 580, 725); context.fillStyle = "#f8c514"; context.fillRect(22, 730, 1156, 48); context.fillStyle = "#111a1c"; context.font = "900 18px Arial"; context.fillText("🔒 No phone number shared.", 52, 762); context.font = "700 16px Arial"; context.fillText("Privacy by default.", 940, 762); const link = document.createElement("a"); link.download = `${selected.tagCode || selected.qrToken}-parkping.png`; link.href = canvas.toDataURL("image/png"); link.click(); };
+    qr.onload = () => { context.drawImage(qr, 734, 208, 276, 276); roundRect(652, 548, 440, 56, 28, "#111a1c"); context.fillStyle = "#fffdf8"; context.font = "900 23px Arial"; context.fillText("⌁  SCAN TO", 690, 584); context.fillStyle = "#f8c514"; context.fillText("MESSAGE", 892, 584); context.fillStyle = "#76747a"; context.font = "900 17px Arial"; context.fillText("TAG ID", 580, 654); context.fillStyle = "#111a1c"; context.font = "bold 25px monospace"; context.fillText(selected.tagCode || selected.qrToken, 580, 690); context.fillStyle = "#76747a"; context.font = "17px Arial"; context.fillText([selected.vehicleNumber, selected.flatNumber, selected.societyName].filter(Boolean).join(" · ") || "YOUR VEHICLE", 580, 725); context.fillStyle = "#f8c514"; context.fillRect(22, 730, 1156, 48); context.fillStyle = "#111a1c"; context.font = "900 18px Arial"; context.fillText("🔒 No phone number shared.", 52, 762); context.font = "700 16px Arial"; context.fillText("Privacy by default.", 940, 762); const link = document.createElement("a"); link.download = `${selected.tagCode || selected.qrToken}-parkping.png`; link.href = canvas.toDataURL("image/png"); link.click(); };
     qr.src = selected.qrDataUrl;
   }
 

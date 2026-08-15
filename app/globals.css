@@ -11,6 +11,9 @@
   --shadow: 0 18px 50px rgba(23, 33, 29, 0.1);
 }
 
+/* Final GetPing source-brand reset: prevent legacy overlay text from rendering twice. */
+.parent-mark { font-size: 1.25rem !important; }.parent-mark::after { content: none !important; }.parent-brand strong { font-size: 1.12rem !important; }.parent-brand strong::after { content: none !important; }.parent-brand small { font-size: .49rem !important; }.parent-brand small::after { content: none !important; }.parent-hero-copy .parent-eyebrow { font-size: .68rem !important; }.parent-hero-copy .parent-eyebrow::after, .parent-text-link::after { content: none !important; }.parent-text-link { font-size: .82rem !important; }
+
 * {
   box-sizing: border-box;
 }
@@ -719,6 +722,9 @@ h1 em, .auth-intro em { color: var(--accent); font-family: Georgia, serif; font-
 .parent-float-note small { font-size: 0; }.parent-float-note small::after { content: "ONE SIMPLE GETPING"; font-size: .54rem; letter-spacing: .08em; }.parent-footer .parent-eyebrow { font-size: 0; }.parent-footer .parent-eyebrow::after { content: "GETPING / MADE WITH CARE"; font-size: .68rem; letter-spacing: .16em; }
 .brand-stack small { font-size: 0; }.brand-stack small::after { content: "by GetPing"; font-size: .58rem; letter-spacing: .08em; }.tag-art-brand strong { font-size: 0; }.tag-art-brand strong::after { content: "GetPing"; font-size: 2.15rem; letter-spacing: -.1em; }.tag-art-subbrand { font-size: 0; }.tag-art-subbrand::after { content: "ParkPing by GetPing"; color: #fffdf8; font-size: .62rem; }.tag-art-scan b { font-size: 0; }.tag-art-scan b::after { content: "GETPING"; font-size: .63rem; }.print-tag:not(.tag-art-print) .print-tag-brand strong::after { content: "GetPing"; font-size: 2.12rem; }.print-tag:not(.tag-art-print) .print-tag-brand::after { content: "ParkPing by GetPing"; }
 
+/* Remove remaining legacy PING labels from UI-only artwork and navigation. */
+.parent-products .parent-eyebrow { font-size: 0; }.parent-products .parent-eyebrow::after { content: "02 / THE GETPING FAMILY"; font-size: .68rem; letter-spacing: .16em; }.park-art strong { font-size: 0; }.park-art strong::after { content: "GetPing"; font-size: 2.9rem; letter-spacing: -.1em; }.park-art i { font-size: 0; }.park-art i::after { content: "SCAN. CONNECT. MOVE ON."; font-size: .58rem; }.parent-footer small { font-size: 0; }.parent-footer small::after { content: "© 2026 GetPing. Quietly useful by design."; font-size: .62rem; }.coming-shell .parent-eyebrow { font-size: 0; }.coming-shell .parent-eyebrow::after { content: "GETPING / PRODUCT STUDIO"; font-size: .68rem; letter-spacing: .16em; }.coming-shell .parent-nav-cta { font-size: 0; }.coming-shell .parent-nav-cta::after { content: "Back to GetPing ↗"; font-size: .78rem; }.coming-back { font-size: 0; }.coming-back::after { content: "← Explore the GetPing family"; font-size: .76rem; }.auth-shell .hero-kicker { font-size: 0; }.auth-shell .hero-kicker::after { content: "ParkPing by GetPing"; font-size: .76rem; letter-spacing: .14em; }.app-shell .top-actions .nav-pill:nth-child(3) { font-size: 0; }.app-shell .top-actions .nav-pill:nth-child(3)::after { content: "GetPing products"; font-size: .88rem; }
+
 /* PING parent-company landing page. */
 .parent-shell, .coming-shell { background: #111a1c; color: #fffdf8; min-height: 100vh; }
 .parent-nav { align-items: center; background: #fffdf8; color: #111a1c; display: flex; gap: 30px; justify-content: space-between; padding: 18px clamp(22px, 7vw, 100px); position: relative; z-index: 4; }
@@ -1060,8 +1066,8 @@ h1 em, .auth-intro em { color: #ff9a8a; }
 .print-tag:not(.tag-art-print) .print-tag-brand .brand-mark { background: transparent; color: #f8c514; font-size: 0; height: 32px; width: 32px; }
 .print-tag:not(.tag-art-print) .print-tag-brand .brand-mark::after { content: "⌁"; font-size: 2.4rem; line-height: 1; }
 .print-tag:not(.tag-art-print) .print-tag-brand strong { font-size: 0; }
-.print-tag:not(.tag-art-print) .print-tag-brand strong::after { color: #fffdf8; content: "PING"; font-size: 2.55rem; font-weight: 950; letter-spacing: -.09em; }
-.print-tag:not(.tag-art-print) .print-tag-brand::after { color: #fffdf8; content: "ParkPing by PING"; font-size: .62rem; font-weight: 850; left: 21px; letter-spacing: .01em; position: absolute; top: 63px; }
+.print-tag:not(.tag-art-print) .print-tag-brand strong::after { color: #fffdf8; content: "ParkPing"; font-size: 1.62rem; font-weight: 950; letter-spacing: -.07em; }
+.print-tag:not(.tag-art-print) .print-tag-brand::after { color: #fffdf8; content: "by GetPing"; font-size: .62rem; font-weight: 850; left: 21px; letter-spacing: .01em; position: absolute; top: 63px; }
 .print-tag:not(.tag-art-print) .print-tag-brand::first-letter { color: #f8c514; }
 .print-tag:not(.tag-art-print) .print-tag-copy { align-self: end; padding: 0 14px 35px 0; }
 .print-tag:not(.tag-art-print) .print-tag-kicker { display: none; }
@@ -1099,3 +1105,6 @@ h1 em, .auth-intro em { color: #ff9a8a; }
   body:has(.dashboard-print-tag) .dashboard-print-tag .print-tag-footer,
   body:has(.admin-detail) .admin-detail .print-tag-footer { display: flex !important; grid-column: 1 / -1; grid-row: 2; }
 }
+
+/* The physical tag now contains GetPing in its source copy; no overlay labels. */
+.tag-art-brand strong { font-size: 1.5rem !important; letter-spacing: -.08em; }.tag-art-brand strong::after { content: none !important; }.tag-art-subbrand { font-size: .68rem !important; font-weight: 850; margin-top: 9px; }.tag-art-subbrand::after { content: none !important; }.tag-art-scan b { font-size: .63rem !important; }.tag-art-scan b::after { content: none !important; }
