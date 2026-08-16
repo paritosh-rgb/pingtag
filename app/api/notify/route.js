@@ -4,6 +4,9 @@ import { readStore, writeStore } from "@/lib/store";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { findVehicleByToken } from "@/lib/vehicles";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { cleanText, rateLimit, readJson, tooManyRequests } from "@/lib/security";
+
+const ALLOWED_CATEGORIES = new Set(["Blocked access", "Lights left on", "Window open", "Minor damage", "Move request", "Heads up"]);
 
 function isMissingLocationSchema(error) {
   return /location_(label|lat|lng|accuracy|source)|schema cache/i.test(error?.message || "");
@@ -14,11 +17,14 @@ function isMissingChatSchema(error) {
 }
 
 export async function POST(request) {
-  const body = await request.json();
-  const tagId = String(body.tagId || "").trim();
-  const token = String(body.token || "").trim();
-  const message = String(body.message || "").trim();
-  const category = String(body.category || "Heads up").trim();
+  const retryAfter = rateLimit(request, "notify", 8, 60_000);
+  if (retryAfter) return tooManyRequests(retryAfter);
+  const body = await readJson(request);
+  if (!body) return Response.json({ error: "Invalid request body." }, { status: 400 });
+  const tagId = cleanText(body.tagId, 80);
+  const token = cleanText(body.token, 80).toUpperCase();
+  const message = cleanText(body.message, 240);
+  const category = cleanText(body.category || "Heads up", 40);
   const vercelCity = request.headers.get("x-vercel-ip-city");
   const vercelCountry = request.headers.get("x-vercel-ip-country");
   const vercelLat = Number(request.headers.get("x-vercel-ip-latitude"));
@@ -27,7 +33,7 @@ export async function POST(request) {
     ? { location_lat: Number(Number(body.location.latitude).toFixed(3)), location_lng: Number(Number(body.location.longitude).toFixed(3)), location_accuracy: Math.max(0, Math.round(Number(body.location.accuracy) || 0)), location_label: "Device location", location_source: "device" }
     : (vercelCity || vercelCountry ? { location_lat: Number.isFinite(vercelLat) ? Number(vercelLat.toFixed(2)) : null, location_lng: Number.isFinite(vercelLng) ? Number(vercelLng.toFixed(2)) : null, location_accuracy: null, location_label: [vercelCity, vercelCountry].filter(Boolean).join(", "), location_source: "network" } : {});
 
-  if (!tagId || !message) {
+  if (!tagId || !token || !message || !ALLOWED_CATEGORIES.has(category)) {
     return Response.json(
       { error: "Tag and message are required." },
       { status: 400 },

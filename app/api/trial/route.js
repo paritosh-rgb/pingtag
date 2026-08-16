@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { listVehicles } from "@/lib/vehicles";
+import { canonicalOrigin, cleanText, rateLimit, readJson, sameOrigin, tooManyRequests } from "@/lib/security";
 
 async function getOwner() {
   const token = (await cookies()).get("ping_supabase_token")?.value;
@@ -14,18 +15,25 @@ async function getOwner() {
 }
 
 export async function POST(request) {
+  if (!sameOrigin(request)) return Response.json({ error: "Invalid request origin." }, { status: 403 });
+  const retryAfter = rateLimit(request, "trial", 5, 60 * 60_000);
+  if (retryAfter) return tooManyRequests(retryAfter);
   const owner = await getOwner();
   if (!owner) return Response.json({ error: "Please log in." }, { status: 401 });
-  const body = await request.json();
+  const body = await readJson(request);
+  if (!body) return Response.json({ error: "Invalid request body." }, { status: 400 });
+  body.vehicleNumber = cleanText(body.vehicleNumber, 30);
+  body.phoneNumber = cleanText(body.phoneNumber, 20);
+  body.societyName = cleanText(body.societyName, 120);
+  body.flatNumber = cleanText(body.flatNumber, 40);
+  body.address = cleanText(body.address, 500);
   if (!body.vehicleNumber || !body.phoneNumber) return Response.json({ error: "Vehicle number and phone number are required." }, { status: 400 });
 
   const existing = (await listVehicles({ ownerId: owner.id, accessToken: owner.accessToken })).find((vehicle) => vehicle.isTrial);
   if (existing) return Response.json({ vehicle: existing, existing: true });
 
   const admin = getSupabaseAdmin();
-  const host = request.headers.get("x-forwarded-host") || request.headers.get("host");
-  const proto = request.headers.get("x-forwarded-proto") || "https";
-  const origin = `${proto}://${host}`;
+  const origin = canonicalOrigin(request);
   const code = `TRIAL-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
   const scanUrl = `${origin}/tag/${code}`;
   const qrDataUrl = await QRCode.toDataURL(scanUrl, { margin: 2, width: 360 });

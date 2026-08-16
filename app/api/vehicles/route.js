@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { activateVehicle, listVehicles } from "@/lib/vehicles";
 import { getSupabase, supabaseConfigured } from "@/lib/supabase";
+import { canonicalOrigin, cleanText, readJson, sameOrigin } from "@/lib/security";
 
 async function getOwner(request) {
   const bearer = request.headers.get("authorization")?.replace("Bearer ", "");
@@ -28,13 +29,19 @@ export async function GET(request) {
 }
 
 export async function POST(request) {
+  if (!sameOrigin(request)) return Response.json({ error: "Invalid request origin." }, { status: 403 });
   const owner = await getOwner(request);
   if (!owner) return Response.json({ error: "Please log in." }, { status: 401 });
-  const body = await request.json();
+  const body = await readJson(request);
+  if (!body) return Response.json({ error: "Invalid request body." }, { status: 400 });
+  body.tagCode = cleanText(body.tagCode, 80).toUpperCase();
+  body.vehicleNumber = cleanText(body.vehicleNumber, 30);
+  body.phoneNumber = cleanText(body.phoneNumber, 20);
+  body.societyName = cleanText(body.societyName, 120);
+  body.flatNumber = cleanText(body.flatNumber, 40);
+  body.address = cleanText(body.address, 500);
   if (!body.tagCode || !body.vehicleNumber || !body.phoneNumber) return Response.json({ error: "Tag code, vehicle number, and phone number are required." }, { status: 400 });
-  const forwardedHost = request.headers.get("x-forwarded-host") || request.headers.get("host");
-  const forwardedProto = request.headers.get("x-forwarded-proto") || new URL(request.url).protocol.replace(":", "");
-  const origin = forwardedHost ? `${forwardedProto}://${forwardedHost}` : new URL(request.url).origin;
+  const origin = canonicalOrigin(request);
   try {
     const vehicle = await activateVehicle({ ...body, ownerId: owner.id, accessToken: owner.accessToken, origin });
     return Response.json({ vehicle });
