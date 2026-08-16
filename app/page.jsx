@@ -85,7 +85,7 @@ export default async function Home({ searchParams }) {
           <div className="hero-kicker"><span className="live-dot" /> Privacy-first car contact</div>
           <h1>Let your car<br /><em>answer back.</em></h1>
           <p className="lead">A discreet QR sticker for the moments your parked car needs you. Get the message without putting your phone number on the glass.</p>
-          <div className="hero-actions"><Link className="btn hero-btn" href="/purchase">Get your physical tag <span>↗</span></Link><a className="text-link" href="#workflow">See how it works <span>↓</span></a></div>
+          <div className="hero-actions"><Link className="btn hero-btn" href="/login?trial=1">Get your free trial tag <span>↗</span></Link><Link className="text-link" href="/purchase">Buy physical tag <span>↗</span></Link><a className="text-link" href="#workflow">See how it works <span>↓</span></a></div>
           <div className="hero-proof"><div className="proof-item"><span>01</span><p>Private by design<br /><strong>No number on display.</strong></p></div><div className="proof-item"><span>02</span><p>Made for parking<br /><strong>Society-ready details.</strong></p></div></div>
         </div>
         <div className="hero-object" aria-label="Sample ParkPing windshield tag preview">
