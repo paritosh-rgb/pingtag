@@ -1127,3 +1127,55 @@ h1 em, .auth-intro em { color: #ff9a8a; }
 @media (max-width: 820px) {
   .admin-layout { grid-template-columns: 1fr !important; }
 }
+
+/* Shared physical ParkPing tag: one component is used in owner and admin views. */
+.premium-tag { aspect-ratio: 3 / 2; background: #111a1c; border: 4px solid #f8c514; border-radius: 20px; box-shadow: 0 18px 50px rgba(9,17,18,.24); color: #fffdf8; display: grid; grid-template-columns: 40% 60%; grid-template-rows: 1fr 42px; margin-top: 20px; max-width: 720px; overflow: hidden; position: relative; width: 100%; }
+.premium-tag-ink { display: flex; flex-direction: column; min-width: 0; padding: clamp(15px, 3.2vw, 26px) clamp(13px, 2.6vw, 23px) 15px; }
+.premium-tag-brand { align-items: center; display: flex; gap: 9px; }
+.premium-tag-symbol { align-items: center; background: #f8c514; border-radius: 9px; color: #111a1c; display: inline-flex; flex: 0 0 auto; font-size: clamp(.85rem, 2.1vw, 1.25rem); font-weight: 950; height: clamp(28px, 5vw, 38px); justify-content: center; width: clamp(28px, 5vw, 38px); }
+.premium-tag-brand > span:last-child { display: grid; line-height: 1; }
+.premium-tag-brand strong { font-size: clamp(.9rem, 2.4vw, 1.45rem); font-weight: 950; letter-spacing: -.055em; }
+.premium-tag-brand small { color: #aeb9b4; font-size: clamp(.36rem, .78vw, .52rem); font-weight: 900; letter-spacing: .14em; margin-top: 5px; }
+.premium-tag-message { margin: auto 0; }
+.premium-tag-message > small { color: #f8c514; font-size: clamp(.34rem, .74vw, .5rem); font-weight: 900; letter-spacing: .13em; }
+.premium-tag-message h3 { color: #fffdf8; font-size: clamp(1.12rem, 3.15vw, 2rem); letter-spacing: -.065em; line-height: .9; margin: 9px 0 11px; }
+.premium-tag-message h3 em { color: #f8c514; font-family: Georgia, serif; font-weight: 500; }
+.premium-tag-message p { color: #b9c4bf; font-size: clamp(.42rem, 1.05vw, .68rem); margin: 0; }
+.premium-tag-steps { align-items: center; display: flex; gap: 7px; }
+.premium-tag-steps span { color: #fffdf8; display: grid; font-size: clamp(.3rem, .7vw, .46rem); font-weight: 900; gap: 2px; letter-spacing: .05em; }
+.premium-tag-steps b { color: #f8c514; font-size: clamp(.38rem, .85vw, .58rem); }
+.premium-tag-steps i { background: rgba(255,255,255,.2); flex: 1; height: 1px; }
+.premium-tag-paper { align-items: center; background: #fffdf8; color: #111a1c; display: flex; flex-direction: column; min-width: 0; padding: clamp(12px, 2.5vw, 20px) 14px 10px; }
+.premium-tag-kindness { font-family: Georgia, serif; font-size: clamp(.48rem, 1.15vw, .76rem); font-style: italic; font-weight: 700; margin: 0 0 clamp(8px, 1.6vw, 13px); text-align: center; }
+.premium-tag-qr-frame { background: #111a1c; border-radius: clamp(10px, 2vw, 17px); padding: clamp(6px, 1.25vw, 10px); width: clamp(105px, 25vw, 178px); }
+.premium-tag-qr-frame img { background: white; border-radius: 7px; display: block; padding: 4px; width: 100%; }
+.premium-tag-cta { background: #111a1c; border-radius: 999px; color: #fffdf8; font-size: clamp(.34rem, .85vw, .56rem); letter-spacing: .035em; margin-top: clamp(6px, 1.35vw, 10px); padding: clamp(5px, 1vw, 8px) clamp(9px, 1.8vw, 14px); text-align: center; }
+.premium-tag-details { align-items: baseline; display: grid; gap: 2px 8px; grid-template-columns: auto 1fr; margin-top: auto; width: 100%; }
+.premium-tag-details span { color: #747c78; font-size: clamp(.3rem, .68vw, .46rem); font-weight: 900; letter-spacing: .12em; }
+.premium-tag-details b { font-family: ui-monospace, monospace; font-size: clamp(.43rem, .92vw, .62rem); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.premium-tag-details small { color: #747c78; font-size: clamp(.32rem, .72vw, .48rem); grid-column: 1 / -1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.premium-tag-footer { align-items: center; background: #f8c514; color: #111a1c; display: flex; font-size: clamp(.4rem, .88vw, .6rem); grid-column: 1 / -1; justify-content: space-between; letter-spacing: .07em; padding: 0 clamp(14px, 3vw, 24px); }
+.premium-tag-footer strong, .premium-tag-footer span { font-weight: 950; }
+.print-size-note { align-items: center; background: #f2f0e8; border-radius: 8px; color: #6d7571; display: flex; font-size: .68rem; justify-content: space-between; margin-top: 10px; padding: 8px 10px; }
+.print-size-note strong { color: #111a1c; font-size: .72rem; }
+.admin-detail .premium-tag { border-width: 3px; border-radius: 14px; grid-template-rows: 1fr 31px; }
+.admin-detail .premium-tag-ink { padding: 13px 11px 9px; }
+.admin-detail .premium-tag-qr-frame { width: clamp(94px, 13vw, 130px); }
+.admin-detail .premium-tag-paper { padding: 10px 9px 7px; }
+.admin-detail .premium-tag-message h3 { font-size: clamp(.92rem, 1.55vw, 1.25rem); }
+
+@media (max-width: 520px) {
+  .premium-tag { border-radius: 14px; border-width: 3px; grid-template-rows: 1fr 31px; }
+  .premium-tag-ink { padding: 12px 10px 8px; }
+  .premium-tag-paper { padding: 9px 7px 6px; }
+  .premium-tag-qr-frame { width: clamp(88px, 27vw, 120px); }
+  .premium-tag-footer { padding: 0 10px; }
+}
+
+@media print {
+  @page { margin: 0; size: 90mm 60mm; }
+  html, body { height: 60mm !important; margin: 0 !important; overflow: hidden !important; width: 90mm !important; }
+  body:has(.premium-tag) * { visibility: hidden !important; }
+  body:has(.premium-tag) .premium-tag, body:has(.premium-tag) .premium-tag * { visibility: visible !important; }
+  body:has(.premium-tag) .premium-tag { border-radius: 0; box-shadow: none; height: 60mm; inset: 0; margin: 0; position: fixed; width: 90mm; }
+}
