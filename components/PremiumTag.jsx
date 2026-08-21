@@ -3,10 +3,11 @@ export default function PremiumTag({
   qrDataUrl,
   vehicleNumber,
   societyName,
+  societyBrandName,
   flatNumber,
   className = "",
 }) {
-  const location = [flatNumber, societyName].filter(Boolean).join(" · ");
+  const location = [flatNumber].filter(Boolean).join(" · ");
 
   return (
     <div className={`premium-tag ${className}`.trim()} data-print-size="90 × 60 mm">
@@ -26,7 +27,7 @@ export default function PremiumTag({
       </section>
 
       <section className="premium-tag-paper">
-        <p className="premium-tag-kindness">A small ping can fix a big inconvenience.</p>
+        {societyBrandName ? <div className="premium-tag-society-brand"><small>RESIDENT EDITION</small><strong>{societyBrandName}</strong></div> : <p className="premium-tag-kindness">A small ping can fix a big inconvenience.</p>}
         <div className="premium-tag-qr-frame">
           <img alt={`ParkPing QR code for ${code}`} src={qrDataUrl} />
         </div>
@@ -34,7 +35,7 @@ export default function PremiumTag({
         <div className="premium-tag-details">
           <span>TAG ID</span>
           <b>{code}</b>
-          <small>{vehicleNumber || "YOUR VEHICLE"}{location ? ` · ${location}` : ""}</small>
+          <small>{vehicleNumber || "YOUR VEHICLE"}{location ? ` · ${location}` : ""}{societyName && societyName !== societyBrandName ? ` · ${societyName}` : ""}</small>
         </div>
       </section>
 

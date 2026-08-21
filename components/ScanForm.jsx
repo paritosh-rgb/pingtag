@@ -17,6 +17,7 @@ export default function ScanForm({ tagId, token }) {
   const [location, setLocation] = useState(null);
   const [locationStatus, setLocationStatus] = useState("");
   const [chat, setChat] = useState(null);
+  const [receipt, setReceipt] = useState(null);
   const [form, setForm] = useState({
     category: "Blocked access",
     message: "",
@@ -51,6 +52,7 @@ export default function ScanForm({ tagId, token }) {
     event.preventDefault();
     setBusy(true);
     setStatus(null);
+    setReceipt(null);
 
     try {
       const response = await fetch("/api/notify", {
@@ -66,11 +68,10 @@ export default function ScanForm({ tagId, token }) {
 
       setForm((current) => ({ ...current, message: "" }));
       setChat(data.chat || null);
-      setStatus({
-        kind: data.delivered ? "good" : "warn",
-        text: data.delivered
-          ? "Alert sent to the owner."
-          : data.reason || "Message saved. The owner has not enabled push yet.",
+      setReceipt(data.receipt || {
+        state: data.delivered ? "notified" : "saved",
+        confirmedAt: new Date().toISOString(),
+        detail: data.delivered ? "The notification service accepted this alert for the owner's device." : data.reason || "The alert is saved for the owner.",
       });
     } catch (error) {
       setStatus({ kind: "warn", text: error.message });
@@ -113,6 +114,7 @@ export default function ScanForm({ tagId, token }) {
       </button>
 
       {status ? <div className={`status ${status.kind}`}>{status.text}</div> : null}
+      {receipt ? <section className={`delivery-receipt ${receipt.state}`} aria-live="polite"><span className="delivery-receipt-icon">{receipt.state === "notified" ? "✓" : "↗"}</span><div><small>DELIVERY CONFIRMATION</small><h3>{receipt.state === "notified" ? "Owner notified" : "Alert saved for the owner"}</h3><p>{receipt.detail}</p><span>{receipt.alertId ? `Reference ${String(receipt.alertId).slice(0, 8)} · ` : ""}{new Date(receipt.confirmedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span></div></section> : null}
       {chat ? <ChatPanel token={chat.token} role="scanner" /> : null}
     </form>
   );

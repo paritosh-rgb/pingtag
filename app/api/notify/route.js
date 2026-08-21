@@ -8,6 +8,17 @@ import { cleanText, rateLimit, readJson, tooManyRequests } from "@/lib/security"
 
 const ALLOWED_CATEGORIES = new Set(["Blocked access", "Lights left on", "Window open", "Minor damage", "Move request", "Heads up"]);
 
+function makeReceipt({ alertId, delivered, reason }) {
+  return {
+    alertId,
+    confirmedAt: new Date().toISOString(),
+    state: delivered ? "notified" : "saved",
+    detail: delivered
+      ? "The notification service accepted this alert for the owner's device."
+      : reason || "The alert is saved in the owner's ParkPing inbox.",
+  };
+}
+
 function isMissingLocationSchema(error) {
   return /location_(label|lat|lng|accuracy|source)|schema cache/i.test(error?.message || "");
 }
@@ -58,16 +69,20 @@ export async function POST(request) {
     const { data: thread, error: chatError } = await supabase.from("chat_threads").insert({ alert_id: alertRecord.id, vehicle_id: tagId, guest_token: guestToken }).select("id,expires_at").single();
     if (!chatError) chat = { threadId: thread.id, token: guestToken, expiresAt: thread.expires_at };
     if (chatError && !isMissingChatSchema(chatError)) return Response.json({ error: chatError.message }, { status: 400 });
-    if (!record.subscription) return Response.json({ ok: true, delivered: false, reason: "The owner has not enabled browser notifications yet.", chat });
+    if (!record.subscription) {
+      const reason = "The owner has not enabled browser notifications yet.";
+      return Response.json({ ok: true, delivered: false, reason, chat, receipt: makeReceipt({ alertId: alertRecord.id, delivered: false, reason }) });
+    }
     try {
       const result = await sendPush(record.subscription, { title: `ParkPing: ${category}`, body: message, url: "/dashboard" });
-      return Response.json({ ok: true, ...result, chat });
+      return Response.json({ ok: true, ...result, chat, receipt: makeReceipt({ alertId: alertRecord.id, delivered: result.delivered, reason: result.reason }) });
     } catch (error) {
       // A 404/410 means the browser subscription is permanently invalid.
       if ([404, 410].includes(error.statusCode)) {
         await supabase.from("vehicles").update({ subscription: null }).eq("id", tagId);
       }
-      return Response.json({ ok: true, delivered: false, reason: error.message || "Push delivery failed.", chat }, { status: 202 });
+      const reason = error.message || "Push delivery failed.";
+      return Response.json({ ok: true, delivered: false, reason, chat, receipt: makeReceipt({ alertId: alertRecord.id, delivered: false, reason }) }, { status: 202 });
     }
   }
 
@@ -94,11 +109,13 @@ export async function POST(request) {
   await writeStore(store);
 
   if (!tag.subscription) {
+    const reason = "The owner has not enabled browser notifications yet.";
     return Response.json({
       ok: true,
       delivered: false,
-      reason: "The owner has not enabled browser notifications yet.",
+      reason,
       chat,
+      receipt: makeReceipt({ alertId: alert.id, delivered: false, reason }),
     });
   }
 
@@ -109,14 +126,16 @@ export async function POST(request) {
       url: "/dashboard",
     });
 
-    return Response.json({ ok: true, ...result, chat });
+    return Response.json({ ok: true, ...result, chat, receipt: makeReceipt({ alertId: alert.id, delivered: result.delivered, reason: result.reason }) });
   } catch (error) {
+    const reason = error.message || "Push delivery failed.";
     return Response.json(
       {
         ok: true,
         delivered: false,
-        reason: error.message || "Push delivery failed.",
+        reason,
         chat,
+        receipt: makeReceipt({ alertId: alert.id, delivered: false, reason }),
       },
       { status: 202 },
     );
